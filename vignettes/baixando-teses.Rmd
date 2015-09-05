@@ -1,0 +1,23 @@
+---
+title: "Baixar teses USP"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Baixar teses USP}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+library(teses.usp)
+library(dplyr)
+links <- baixar_links()
+teses_usp <- baixar_teses(links$link)
+teses_usp %>%
+  select(link:unidade_da_usp, -um) %>%
+  filter(documento != 'erro')
+
+teses_usp %>% filter(documento == 'erro') %>% with(link)
+```
+
